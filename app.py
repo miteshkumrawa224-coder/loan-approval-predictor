@@ -65,16 +65,21 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+import os
+
 @st.cache_resource
 def load_models():
-    num_imp = joblib.load('models/num_imputer.pkl')
-    cat_imp = joblib.load('models/cat_imputer.pkl')
-    le_edu = joblib.load('models/le_edu.pkl')
-    ohe = joblib.load('models/ohe.pkl')
-    scaler = joblib.load('models/scaler.pkl')
-    model = joblib.load('models/log_model.pkl')
-    ohe_cols = joblib.load('models/ohe_cols.pkl')
-    ohe_feature_names = joblib.load('models/ohe_feature_names.pkl')
+    # If the user uploaded the files directly to the root directory on GitHub, look there instead
+    model_dir = "models/" if os.path.exists("models/num_imputer.pkl") else ""
+    
+    num_imp = joblib.load(f'{model_dir}num_imputer.pkl')
+    cat_imp = joblib.load(f'{model_dir}cat_imputer.pkl')
+    le_edu = joblib.load(f'{model_dir}le_edu.pkl')
+    ohe = joblib.load(f'{model_dir}ohe.pkl')
+    scaler = joblib.load(f'{model_dir}scaler.pkl')
+    model = joblib.load(f'{model_dir}log_model.pkl')
+    ohe_cols = joblib.load(f'{model_dir}ohe_cols.pkl')
+    ohe_feature_names = joblib.load(f'{model_dir}ohe_feature_names.pkl')
     return num_imp, cat_imp, le_edu, ohe, scaler, model, ohe_cols, ohe_feature_names
 
 def main():
