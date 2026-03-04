@@ -16,115 +16,91 @@ st.markdown("""
 <style>
     /* Global background */
     .stApp {
-        background: #f0f4f8;
+        background: #f4f7f6;
     }
     
-    /* 3D Container Styling */
-    .st-emotion-cache-16txtl3 {
-        background: #ffffff;
-        border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 20px 20px 60px #cdd1d5, -20px -20px 60px #ffffff;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        margin-bottom: 20px;
-        transition: transform 0.3s ease;
-    }
-    .st-emotion-cache-16txtl3:hover {
-        transform: translateY(-5px);
-    }
-    
-    /* Stylish 3D Button */
+    /* Stylish Gradient Button */
     .stButton>button {
-        background: linear-gradient(145deg, #4f46e5, #423bdf);
+        background: linear-gradient(135deg, #4f46e5, #3b82f6);
         color: white;
-        border-radius: 15px;
-        padding: 0.8rem 2rem;
-        font-weight: 800;
-        font-size: 1.2rem;
+        border-radius: 8px;
+        padding: 0.6rem 2rem;
+        font-weight: 700;
+        font-size: 1.1rem;
         border: none;
-        box-shadow: 5px 5px 10px #b1cbe3, -5px -5px 10px #ffffff;
-        transition: all 0.2s ease;
+        box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+        transition: all 0.3s ease;
         width: 100%;
         text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-    .stButton>button:active {
-        box-shadow: inset 5px 5px 10px #352fbb, inset -5px -5px 10px #695dff;
-        transform: translateY(2px);
+        letter-spacing: 1px;
     }
     .stButton>button:hover {
-        background: linear-gradient(145deg, #423bdf, #4f46e5);
+        background: linear-gradient(135deg, #4338ca, #2563eb);
+        box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+        transform: translateY(-2px);
     }
 
-    /* 3D Cards for Results */
+    /* Clean Cards for Results */
     .prediction-card-approved {
-        background: linear-gradient(145deg, #12d191, #0fb07a);
+        background: linear-gradient(135deg, #10b981, #059669);
         color: white;
-        padding: 3rem;
-        border-radius: 25px;
+        padding: 2.5rem;
+        border-radius: 16px;
         text-align: center;
-        box-shadow: 15px 15px 30px #cdd1d5, -15px -15px 30px #ffffff, inset 5px 5px 15px rgba(255,255,255,0.4);
-        animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+        animation: fadeIn 0.5s ease-out;
     }
     .prediction-card-rejected {
-        background: linear-gradient(145deg, #ff4d4d, #e64545);
+        background: linear-gradient(135deg, #ef4444, #dc2626);
         color: white;
-        padding: 3rem;
-        border-radius: 25px;
+        padding: 2.5rem;
+        border-radius: 16px;
         text-align: center;
-        box-shadow: 15px 15px 30px #cdd1d5, -15px -15px 30px #ffffff, inset 5px 5px 15px rgba(255,255,255,0.3);
-        animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3);
+        animation: fadeIn 0.5s ease-out;
     }
     
-    /* 3D Factor Items */
+    /* Clean Factor Items */
     .factor-item {
-        margin: 15px 0;
-        padding: 1.2rem;
-        border-radius: 15px;
-        background: #ffffff;
+        margin: 12px 0;
+        padding: 1rem 1.2rem;
+        border-radius: 10px;
+        background: white;
         color: #1f2937;
-        font-weight: 700;
+        font-weight: 600;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         transition: transform 0.2s;
     }
     .factor-item:hover {
-        transform: scale(1.02);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
     .factor-positive {
-        border-left: 8px solid #10B981;
+        border-left: 6px solid #10b981;
     }
     .factor-negative {
-        border-left: 8px solid #EF4444;
+        border-left: 6px solid #ef4444;
     }
     
-    @keyframes popIn {
-        0% { opacity: 0; transform: scale(0.8) translateY(20px); }
-        100% { opacity: 1; transform: scale(1) translateY(0); }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
     }
     
-    /* 3D Headings */
+    /* Clean Headings */
     h1 {
-        font-weight: 900;
-        background: -webkit-linear-gradient(45deg, #1E3A8A, #3B82F6);
+        font-weight: 800;
+        background: -webkit-linear-gradient(45deg, #1e3a8a, #3b82f6);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
     }
     h2, h3 {
-        color: #1E3A8A;
-        font-weight: 800;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-    }
-    
-    /* Input field styling */
-    .stNumberInput>div>div>input, .stSelectbox>div>div>div, .stSlider>div>div>div>div {
-        border-radius: 10px;
-        box-shadow: inset 3px 3px 6px #d9d9d9, inset -3px -3px 6px #ffffff;
-        border: none !important;
-        background: #f0f4f8;
+        color: #1e3a8a;
+        font-weight: 700;
     }
 </style>
 """, unsafe_allow_html=True)
