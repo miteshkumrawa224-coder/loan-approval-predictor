@@ -5,62 +5,95 @@ import joblib
 
 # Page Configuration
 st.set_page_config(
-    page_title="Loan Approval Predictor",
-    page_icon="🏦",
+    page_title="LoanSense AI",
+    page_icon="💸",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # Custom CSS for a modern, sleek aesthetic
 st.markdown("""
 <style>
-    .main {
-        background-color: #f7f9fc;
+    /* Global background */
+    .stApp {
+        background: #f8fbff;
     }
+    /* Stylish Button */
     .stButton>button {
-        background-color: #0066cc;
+        background: linear-gradient(135deg, #4F46E5, #3B82F6);
         color: white;
-        border-radius: 8px;
-        padding: 0.5rem 1rem;
-        font-weight: bold;
+        border-radius: 12px;
+        padding: 0.6rem 2rem;
+        font-weight: 700;
+        font-size: 1.1rem;
         border: none;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
         transition: all 0.3s ease;
         width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     .stButton>button:hover {
-        background-color: #0052a3;
-        box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        background: linear-gradient(135deg, #4338CA, #2563EB);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         transform: translateY(-2px);
     }
+    /* Cards for Results */
     .prediction-card-approved {
-        background: linear-gradient(135deg, #1f8a4c, #27ae60);
+        background: linear-gradient(135deg, #10B981, #059669);
         color: white;
-        padding: 2rem;
-        border-radius: 15px;
+        padding: 2.5rem;
+        border-radius: 20px;
         text-align: center;
-        box-shadow: 0 10px 20px rgba(39, 174, 96, 0.2);
-        animation: fadeIn 0.5s ease-in;
+        box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.3), 0 10px 10px -5px rgba(16, 185, 129, 0.2);
+        animation: fadeIn 0.6s ease-out;
     }
     .prediction-card-rejected {
-        background: linear-gradient(135deg, #c0392b, #e74c3c);
+        background: linear-gradient(135deg, #EF4444, #DC2626);
         color: white;
-        padding: 2rem;
-        border-radius: 15px;
+        padding: 2.5rem;
+        border-radius: 20px;
         text-align: center;
-        box-shadow: 0 10px 20px rgba(231, 76, 60, 0.2);
-        animation: fadeIn 0.5s ease-in;
+        box-shadow: 0 20px 25px -5px rgba(239, 68, 68, 0.3), 0 10px 10px -5px rgba(239, 68, 68, 0.2);
+        animation: fadeIn 0.6s ease-out;
+    }
+    .factor-item {
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #1f2937;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .factor-positive {
+        border-left: 5px solid #10B981;
+    }
+    .factor-negative {
+        border-left: 5px solid #EF4444;
     }
     @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
+        from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    h1, h2, h3 {
-        color: #2c3e50;
+    /* Headings */
+    h1 {
+        font-weight: 800;
+        background: -webkit-linear-gradient(45deg, #1E3A8A, #3B82F6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    h2, h3 {
+        color: #1E3A8A;
+        font-weight: 700;
     }
     .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        max-width: 1200px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -83,7 +116,8 @@ def load_models():
     return num_imp, cat_imp, le_edu, ohe, scaler, model, ohe_cols, ohe_feature_names
 
 def main():
-    st.markdown("<h1 style='text-align: center; margin-bottom: 2rem;'>🏦 Smart Loan Approval Predictor</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; margin-bottom: 0.5rem; font-size: 3.5rem;'>💸 LoanSense</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #64748B; font-size: 1.2rem; margin-bottom: 3rem;'>AI-Powered Instant Loan Decisions & Financial Insights</p>", unsafe_allow_html=True)
     
     try:
         num_imp, cat_imp, le_edu, ohe, scaler, model, ohe_cols, ohe_feature_names = load_models()
@@ -186,28 +220,85 @@ def main():
             prediction = model.predict(X_scaled)[0]
             probability = model.predict_proba(X_scaled)[0]
             
-            st.markdown("<hr>", unsafe_allow_html=True)
+            # Calculate Contributions for Explainability
+            contributions = model.coef_[0] * X_scaled[0]
             
-            if prediction == 1:
-                prob = probability[1] * 100
-                st.markdown(f"""
-                    <div class='prediction-card-approved'>
-                        <h2>🎉 Congratulations!</h2>
-                        <h4>Your loan application is likely to be APPROVED.</h4>
-                        <p style='font-size: 1.2rem; opacity: 0.9;'>Confidence Score: {prob:.1f}%</p>
-                    </div>
-                """, unsafe_allow_html=True)
-                st.balloons()
-            else:
-                prob = probability[0] * 100
-                st.markdown(f"""
-                    <div class='prediction-card-rejected'>
-                        <h2>⚠️ Application High Risk</h2>
-                        <h4>Unfortunately, your loan application is likely to be REJECTED.</h4>
-                        <p style='font-size: 1.2rem; opacity: 0.9;'>Confidence Score: {prob:.1f}%</p>
-                        <p style='font-size: 0.9rem; margin-top: 1rem;'>Consider improving your credit score or reducing your debt-to-income ratio.</p>
-                    </div>
-                """, unsafe_allow_html=True)
+            # Map clean names for display
+            clean_names = {
+                'Applicant_Income_log': 'Applicant Income',
+                'Credit_Score_aq': 'Credit Score',
+                'DTI_Ratio_sq': 'Debt-to-Income Ratio',
+                'Loan_Amount': 'Loan Amount',
+                'Loan_Term': 'Loan Term',
+                'Age': 'Applicant Age',
+                'Savings': 'Total Savings',
+                'Collateral_Value': 'Collateral Value',
+                'Existing_Loans': 'Existing Loans',
+                'Dependents': 'Dependents'
+            }
+            
+            factors = []
+            for feat, cont in zip(ohe_feature_names, contributions):
+                name = clean_names.get(feat, feat.replace('_', ' ').title())
+                # Skip zero contributions from one-hot encoding or tiny contributions
+                if "Employment Status" in name or "Employer Category" in name or "Loan Purpose" in name or "Property Area" in name:
+                    if abs(cont) < 0.01: continue 
+                factors.append({"name": name, "impact": cont})
+                
+            factors.sort(key=lambda x: abs(x["impact"]), reverse=True)
+            top_factors = factors[:4] # Display top 4 impact factors
+            
+            st.markdown("<hr style='margin: 3rem 0; border: none; height: 1px; background: #E2E8F0;'>", unsafe_allow_html=True)
+            
+            res_col1, res_col2 = st.columns([1.2, 1])
+            
+            with res_col1:
+                if prediction == 1:
+                    prob = probability[1] * 100
+                    st.markdown(f"""
+                        <div class='prediction-card-approved'>
+                            <h2 style='color: white; margin-bottom: 0.5rem;'>🎉 APPROVED</h2>
+                            <h4 style='color: rgba(255,255,255,0.9); font-weight: 400;'>Your loan application was successful.</h4>
+                            <div style='margin-top: 2rem; background: rgba(0,0,0,0.1); padding: 1rem; border-radius: 10px;'>
+                                <p style='font-size: 1.1rem; margin: 0; opacity: 0.9;'>AI Confidence Score</p>
+                                <p style='font-size: 2.5rem; font-weight: bold; margin: 0;'>{prob:.1f}%</p>
+                            </div>
+                        </div>
+                    """, unsafe_allow_html=True)
+                    st.balloons()
+                else:
+                    prob = probability[0] * 100
+                    st.markdown(f"""
+                        <div class='prediction-card-rejected'>
+                            <h2 style='color: white; margin-bottom: 0.5rem;'>⚠️ REJECTED</h2>
+                            <h4 style='color: rgba(255,255,255,0.9); font-weight: 400;'>High risk detected. Policy declined.</h4>
+                            <div style='margin-top: 2rem; background: rgba(0,0,0,0.1); padding: 1rem; border-radius: 10px;'>
+                                <p style='font-size: 1.1rem; margin: 0; opacity: 0.9;'>AI Confidence Score</p>
+                                <p style='font-size: 2.5rem; font-weight: bold; margin: 0;'>{prob:.1f}%</p>
+                            </div>
+                        </div>
+                    """, unsafe_allow_html=True)
+            
+            with res_col2:
+                st.markdown("### 🔍 Key Decision Drivers", unsafe_allow_html=True)
+                st.markdown("<p style='color: #64748B;'>The AI's decision was most heavily influenced by these factors from your profile:</p>", unsafe_allow_html=True)
+                
+                for f in top_factors:
+                    if f["impact"] > 0:
+                        direction = "Positive Impact"
+                        css_class = "factor-positive"
+                        icon = "✅"
+                    else:
+                        direction = "Negative Risk"
+                        css_class = "factor-negative"
+                        icon = "⚠️" if prediction == 0 else "🔻"
+                    
+                    st.markdown(f"""
+                        <div class='factor-item {css_class}'>
+                            <span style='display: flex; align-items: center; gap: 8px;'>{icon} <b>{f['name']}</b></span>
+                            <span style='font-size: 0.85rem; color: #6B7280;'>{direction}</span>
+                        </div>
+                    """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
