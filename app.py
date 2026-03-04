@@ -14,10 +14,6 @@ st.set_page_config(
 # Custom CSS for a modern, sleek aesthetic
 st.markdown("""
 <style>
-    /* Global background */
-    .stApp {
-        background: #f4f7f6;
-    }
     
     /* Stylish Gradient Button */
     .stButton>button {
