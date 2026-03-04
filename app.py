@@ -11,89 +11,120 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for a modern, sleek aesthetic
+# Custom CSS for a modern, 3D aesthetic
 st.markdown("""
 <style>
     /* Global background */
     .stApp {
-        background: #f8fbff;
+        background: #f0f4f8;
     }
-    /* Stylish Button */
+    
+    /* 3D Container Styling */
+    .st-emotion-cache-16txtl3 {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 20px 20px 60px #cdd1d5, -20px -20px 60px #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        margin-bottom: 20px;
+        transition: transform 0.3s ease;
+    }
+    .st-emotion-cache-16txtl3:hover {
+        transform: translateY(-5px);
+    }
+    
+    /* Stylish 3D Button */
     .stButton>button {
-        background: linear-gradient(135deg, #4F46E5, #3B82F6);
+        background: linear-gradient(145deg, #4f46e5, #423bdf);
         color: white;
-        border-radius: 12px;
-        padding: 0.6rem 2rem;
-        font-weight: 700;
-        font-size: 1.1rem;
+        border-radius: 15px;
+        padding: 0.8rem 2rem;
+        font-weight: 800;
+        font-size: 1.2rem;
         border: none;
-        box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
-        transition: all 0.3s ease;
+        box-shadow: 5px 5px 10px #b1cbe3, -5px -5px 10px #ffffff;
+        transition: all 0.2s ease;
         width: 100%;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 2px;
+    }
+    .stButton>button:active {
+        box-shadow: inset 5px 5px 10px #352fbb, inset -5px -5px 10px #695dff;
+        transform: translateY(2px);
     }
     .stButton>button:hover {
-        background: linear-gradient(135deg, #4338CA, #2563EB);
-        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        transform: translateY(-2px);
+        background: linear-gradient(145deg, #423bdf, #4f46e5);
     }
-    /* Cards for Results */
+
+    /* 3D Cards for Results */
     .prediction-card-approved {
-        background: linear-gradient(135deg, #10B981, #059669);
+        background: linear-gradient(145deg, #12d191, #0fb07a);
         color: white;
-        padding: 2.5rem;
-        border-radius: 20px;
+        padding: 3rem;
+        border-radius: 25px;
         text-align: center;
-        box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.3), 0 10px 10px -5px rgba(16, 185, 129, 0.2);
-        animation: fadeIn 0.6s ease-out;
+        box-shadow: 15px 15px 30px #cdd1d5, -15px -15px 30px #ffffff, inset 5px 5px 15px rgba(255,255,255,0.4);
+        animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .prediction-card-rejected {
-        background: linear-gradient(135deg, #EF4444, #DC2626);
+        background: linear-gradient(145deg, #ff4d4d, #e64545);
         color: white;
-        padding: 2.5rem;
-        border-radius: 20px;
+        padding: 3rem;
+        border-radius: 25px;
         text-align: center;
-        box-shadow: 0 20px 25px -5px rgba(239, 68, 68, 0.3), 0 10px 10px -5px rgba(239, 68, 68, 0.2);
-        animation: fadeIn 0.6s ease-out;
+        box-shadow: 15px 15px 30px #cdd1d5, -15px -15px 30px #ffffff, inset 5px 5px 15px rgba(255,255,255,0.3);
+        animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
+    
+    /* 3D Factor Items */
     .factor-item {
-        margin: 10px 0;
-        padding: 15px;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.9);
+        margin: 15px 0;
+        padding: 1.2rem;
+        border-radius: 15px;
+        background: #ffffff;
         color: #1f2937;
-        font-weight: 600;
+        font-weight: 700;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+        transition: transform 0.2s;
+    }
+    .factor-item:hover {
+        transform: scale(1.02);
     }
     .factor-positive {
-        border-left: 5px solid #10B981;
+        border-left: 8px solid #10B981;
     }
     .factor-negative {
-        border-left: 5px solid #EF4444;
+        border-left: 8px solid #EF4444;
     }
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+    
+    @keyframes popIn {
+        0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); }
     }
-    /* Headings */
+    
+    /* 3D Headings */
     h1 {
-        font-weight: 800;
+        font-weight: 900;
         background: -webkit-linear-gradient(45deg, #1E3A8A, #3B82F6);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
     }
     h2, h3 {
         color: #1E3A8A;
-        font-weight: 700;
+        font-weight: 800;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
     }
-    .block-container {
-        padding-top: 3rem;
-        padding-bottom: 3rem;
-        max-width: 1200px;
+    
+    /* Input field styling */
+    .stNumberInput>div>div>input, .stSelectbox>div>div>div, .stSlider>div>div>div>div {
+        border-radius: 10px;
+        box-shadow: inset 3px 3px 6px #d9d9d9, inset -3px -3px 6px #ffffff;
+        border: none !important;
+        background: #f0f4f8;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -240,6 +271,11 @@ def main():
             factors = []
             for feat, cont in zip(ohe_feature_names, contributions):
                 name = clean_names.get(feat, feat.replace('_', ' ').title())
+                
+                # Filter out Gender explicitly as per risk logic
+                if "Gender" in name:
+                    continue
+                    
                 # Skip zero contributions from one-hot encoding or tiny contributions
                 if "Employment Status" in name or "Employer Category" in name or "Loan Purpose" in name or "Property Area" in name:
                     if abs(cont) < 0.01: continue 
