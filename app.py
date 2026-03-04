@@ -90,19 +90,6 @@ st.markdown("""
         from { opacity: 0; transform: translateY(15px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    
-    /* Solid, safe Headings */
-    h1, h2, h3, h4, h5, h6 {
-        color: #1e3a8a !important;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-    }
-    
-    /* Fix Streamlit container paddings to ensure nothing is hidden */
-    .block-container {
-        padding-top: 1rem !important;
-        padding-bottom: 2rem !important;
-        max-width: 1200px !important;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -124,8 +111,8 @@ def load_models():
     return num_imp, cat_imp, le_edu, ohe, scaler, model, ohe_cols, ohe_feature_names
 
 def main():
-    st.markdown("<h1 style='text-align: center; margin-bottom: 0.5rem; font-size: 3.5rem;'>💸 LoanSense</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #64748B; font-size: 1.2rem; margin-bottom: 1rem;'>AI-Powered Instant Loan Decisions & Financial Insights</p>", unsafe_allow_html=True)
+    st.title("💸 LoanSense")
+    st.markdown("<p style='text-align: center; color: #64748B; font-size: 1.2rem; margin-bottom: 2rem;'>AI-Powered Instant Loan Decisions & Financial Insights</p>", unsafe_allow_html=True)
     
     try:
         st.image("hero_image.png", use_container_width=True)
