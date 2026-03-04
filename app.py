@@ -96,12 +96,12 @@ def main():
     with col1:
         st.markdown("### 👤 Applicant Information")
         with st.container(border=True):
-            app_income = st.number_input("Applicant Income ($)", min_value=0.0, value=50000.0, step=1000.0)
+            app_income = st.number_input("Applicant Income ($)", min_value=0.0, value=10000.0, step=1000.0)
             coapp_income = st.number_input("Coapplicant Income ($)", min_value=0.0, value=0.0, step=1000.0)
             age = st.slider("Age", min_value=18, max_value=100, value=35)
             dependents = st.number_input("Number of Dependents", min_value=0.0, value=0.0, step=1.0)
             gender = st.selectbox("Gender", ["Male", "Female"])
-            marital_status = st.selectbox("Marital Status", ["Single", "Married"])
+            marital_status = st.selectbox("Marital Status", ["Married", "Single"])
             education = st.selectbox("Education Level", ["Graduate", "Not Graduate"])
             
     with col2:
@@ -112,19 +112,19 @@ def main():
             credit_score = st.slider("Credit Score", min_value=300.0, max_value=850.0, value=650.0, step=1.0)
             existing_loans = st.number_input("Number of Existing Loans", min_value=0.0, value=1.0, step=1.0)
             dti_ratio = st.slider("Debt-to-Income (DTI) Ratio", min_value=0.0, max_value=1.0, value=0.3, step=0.01)
-            savings = st.number_input("Total Savings ($)", min_value=0.0, value=10000.0, step=1000.0)
+            savings = st.number_input("Total Savings ($)", min_value=0.0, value=5000.0, step=1000.0)
 
     st.markdown("### 📑 Loan Details")
     with st.container(border=True):
         c1, c2, c3 = st.columns(3)
         with c1:
-            loan_amount = st.number_input("Requested Loan Amount ($)", min_value=1000.0, value=25000.0, step=1000.0)
+            loan_amount = st.number_input("Requested Loan Amount ($)", min_value=1000.0, value=20000.0, step=1000.0)
             loan_purpose = st.selectbox("Loan Purpose", ["Personal", "Car", "Business", "Home", "Education"])
         with c2:
-            loan_term = st.selectbox("Loan Term (Months)", [12.0, 24.0, 36.0, 48.0, 60.0, 72.0, 84.0, 120.0, 180.0, 240.0, 360.0], index=4)
+            loan_term = st.selectbox("Loan Term (Months)", [12.0, 24.0, 36.0, 48.0, 60.0, 72.0, 84.0, 120.0, 180.0, 240.0, 360.0], index=3)
             property_area = st.selectbox("Property Area", ["Urban", "Semiurban", "Rural"])
         with c3:
-            collateral_value = st.number_input("Collateral Value ($)", min_value=0.0, value=30000.0, step=1000.0)
+            collateral_value = st.number_input("Collateral Value ($)", min_value=0.0, value=15000.0, step=1000.0)
 
     st.markdown("<br>", unsafe_allow_html=True)
     
