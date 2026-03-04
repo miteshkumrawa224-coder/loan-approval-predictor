@@ -143,7 +143,7 @@ def main():
     col1, col2 = st.columns([1, 1])
 
     with col1:
-        st.markdown("### 👤 Applicant Information")
+        st.subheader("👤 Applicant Information")
         with st.container(border=True):
             app_income = st.number_input("Applicant Income ($)", min_value=0.0, value=10000.0, step=1000.0)
             coapp_income = st.number_input("Coapplicant Income ($)", min_value=0.0, value=0.0, step=1000.0)
@@ -154,7 +154,7 @@ def main():
             education = st.selectbox("Education Level", ["Graduate", "Not Graduate"])
             
     with col2:
-        st.markdown("### 💼 Employment & Finances")
+        st.subheader("💼 Employment & Finances")
         with st.container(border=True):
             employ_status = st.selectbox("Employment Status", ["Salaried", "Self-employed", "Contract", "Unemployed"])
             employ_category = st.selectbox("Employer Category", ["Private", "Government", "MNC", "Business", "Unemployed"])
@@ -163,7 +163,7 @@ def main():
             dti_ratio = st.slider("Debt-to-Income (DTI) Ratio", min_value=0.0, max_value=1.0, value=0.3, step=0.01)
             savings = st.number_input("Total Savings ($)", min_value=0.0, value=5000.0, step=1000.0)
 
-    st.markdown("### 📑 Loan Details")
+    st.subheader("📑 Loan Details")
     with st.container(border=True):
         c1, c2, c3 = st.columns(3)
         with c1:
