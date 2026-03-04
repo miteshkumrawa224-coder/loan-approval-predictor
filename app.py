@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for a modern, 3D aesthetic
+# Custom CSS for a modern, sleek aesthetic
 st.markdown("""
 <style>
     /* Global background */
@@ -91,16 +91,17 @@ st.markdown("""
         to { opacity: 1; transform: translateY(0); }
     }
     
-    /* Clean Headings */
-    h1 {
-        font-weight: 800;
-        background: -webkit-linear-gradient(45deg, #1e3a8a, #3b82f6);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+    /* Solid, safe Headings */
+    h1, h2, h3, h4, h5, h6 {
+        color: #1e3a8a !important;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
     }
-    h2, h3 {
-        color: #1e3a8a;
-        font-weight: 700;
+    
+    /* Fix Streamlit container paddings to ensure nothing is hidden */
+    .block-container {
+        padding-top: 1rem !important;
+        padding-bottom: 2rem !important;
+        max-width: 1200px !important;
     }
 </style>
 """, unsafe_allow_html=True)
